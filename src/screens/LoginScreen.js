@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert, Image, BackHandler, Platform } from 'react-native';
+import { 
+    View, 
+    TextInput, 
+    TouchableOpacity, 
+    Text, 
+    StyleSheet, 
+    Alert, 
+    Image, 
+    BackHandler, 
+    Platform,
+    ImageBackground 
+} from 'react-native';
 
 const USERS = [
     { user: 'Admin', pass: '123' },
@@ -21,13 +32,13 @@ export default function LoginScreen({ onLogin }) {
     };
 
     const handleExit = () => {
-        Alert.alert("Salir", "¿Deseas cerrar la aplicación?", [
+        Alert.alert("Exit", "Do you want to close the app?", [
             { text: "No", style: "cancel" },
             { 
-                text: "Sí", 
+                text: "Yes", 
                 onPress: () => {
                     if (Platform.OS === 'ios') {
-                        Alert.alert("Aviso", "No es posible cerrar la aplicación automáticamente porque es un iPhone. Por favor, ciérrala manualmente.");
+                        Alert.alert("Notice", "Please close the app manually on your iPhone.");
                     } else {
                         BackHandler.exitApp();
                     }
@@ -37,78 +48,99 @@ export default function LoginScreen({ onLogin }) {
     };
 
     return (
-        <View style={styles.container}>
-<Text style={styles.title}>WELCOME TO{"\n"}PIZZERIA DELIVERY</Text>
-            <View style={styles.logoContainer}>
-                <Image source={require('../../assets/img1.jpg')} style={styles.logo} />
+        <ImageBackground 
+            source={require('../../assets/3.jpeg')} 
+            style={styles.background}
+            resizeMode="cover"
+        >
+            <View style={styles.overlay}>
+                <Text style={styles.title}>WELCOME TO{"\n"}PIZZERIA DELIVERY</Text>
+                
+                
+                <Text style={styles.label}>login</Text>
+                
+                <TextInput 
+                    placeholder="USER" 
+                    style={styles.input} 
+                    onChangeText={setU} 
+                    value={u}
+                />
+                <TextInput 
+                    placeholder="PASSWORD" 
+                    secureTextEntry 
+                    style={styles.input} 
+                    onChangeText={setP} 
+                    value={p}
+                />
+                
+                <TouchableOpacity style={styles.btnEntrar} onPress={handleLogin}>
+                    <Text style={styles.btnText}>OPEN</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.exitBtnSmall} onPress={handleExit}>
+                    <Text style={styles.exitText}>EXIT</Text>
+                </TouchableOpacity>
             </View>
-            <Text style={styles.label}>login</Text>
-            <TextInput placeholder="USER" style={styles.input} onChangeText={setU} />
-            <TextInput placeholder="PASSWORD" secureTextEntry style={styles.input} onChangeText={setP} />
-            <TouchableOpacity style={styles.btnEntrar} onPress={handleLogin}>
-                <Text>ENTRAR</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.exitBtnSmall} onPress={handleExit}>
-                <Text style={styles.exitText}>EXIT</Text>
-            </TouchableOpacity>
-        </View>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { 
+    background: {
+        flex: 1,
+        width: '100%',
+        height: '100%'
+    },
+    overlay: { 
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#e1a6b3',
+        backgroundColor: 'rgba(225, 166, 179, 0.6)', 
         padding: 30 
     },
     title: {
         textAlign: 'center',
-        fontSize: 22, 
+        fontSize: 26, 
         fontWeight: 'bold',
-        marginBottom: 20
-    },
-    logoContainer: { 
-        width: 120, 
-        height: 120, 
-        backgroundColor: '#030203', 
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 20 
-    },
-    logo: { 
-        width: 100,
-        height: 100,
-        resizeMode: 'contain'
+        marginBottom: 40,
+        color: '#333'
     },
     label: {
-        marginBottom: 10
+        marginBottom: 10,
+        fontWeight: 'bold'
     },
     input: { 
-        backgroundColor: '#f4f4f4',
+        backgroundColor: 'rgba(244, 244, 244, 0.9)', 
         width: '90%',
-        padding: 10,
+        padding: 15,
         marginBottom: 15, 
-        textAlign: 'center'
+        textAlign: 'center',
+        borderRadius: 10
     },
     btnEntrar: { 
         backgroundColor: '#b4c7e7',
-        padding: 12,
-        width: '40%',
+        padding: 15,
+        width: '50%',
         alignItems: 'center',
-        marginTop: 10 
+        marginTop: 20,
+        borderRadius: 15,
+        elevation: 3
+    },
+    btnText: {
+        fontWeight: 'bold',
+        fontSize: 16
     },
     exitBtnSmall: {
         position: 'absolute',
-        bottom: 40,
+        bottom: 50,
         right: 40,
         backgroundColor: '#f8a08c',
-        padding: 5, 
+        paddingVertical: 8, 
+        paddingHorizontal: 15,
         borderRadius: 10 
     },
     exitText: { 
-        fontSize: 10 
+        fontSize: 12,
+        fontWeight: 'bold'
     }
 });

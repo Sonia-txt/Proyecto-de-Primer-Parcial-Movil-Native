@@ -1,27 +1,12 @@
 import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  TextInput, 
-  TouchableOpacity, 
-  StyleSheet, 
-  Alert, 
-  Keyboard, 
-  TouchableWithoutFeedback 
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Keyboard, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 
-const VALID_PIZZAS = [
-  'HAWAIANA', 'CUBANA', 'PEPERONI', 'VEGETARIANA', 
-  'MEXICANA', 'ESPECIAL', '4 QUESOS', 'POLLO', 
-  'CARNE', 'MAR Y TIERRA', 'BARBACOA'
-];
+const VALID_PIZZAS = ['HAWAIANA', 'CUBANA', 'PEPERONI', 'VEGETARIANA', 'MEXICANA', 'ESPECIAL', '4 QUESOS', 'POLLO', 'CARNE', 'MAR Y TIERRA', 'BARBACOA'];
 
-export default function OrderScreen({ navigation, onSave, route }) {
+export default function OrderScreen({ navigation, onSave }) {
   const [type, setType] = useState('');
   const [size, setSize] = useState('');
   const [amount, setAmount] = useState('');
-
-  const currentUser = route.params?.user || route.params?.username;
 
   const handleSave = () => {
     if (!type || !size || !amount) {
@@ -41,109 +26,88 @@ export default function OrderScreen({ navigation, onSave, route }) {
       Alert.alert("Invalid Size", "Use 'CH' or 'G'.");
       return;
     }
-    
+
     onSave({ type: pizzaInput, size: sizeInput, amount });
 
     Alert.alert("Success", "Order saved successfully", [
-      { 
-        text: "OK", 
-        onPress: () => {
-          setType('');
-          setSize('');
-          setAmount('');
-          Keyboard.dismiss();
-        } 
-      }
+      { text: "OK", onPress: () => { setType(''); setSize(''); setAmount(''); Keyboard.dismiss(); } }
     ]);
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <Text style={styles.title}>ORDER</Text>
-        
-        <TextInput 
-          placeholder="TYPE" 
-          style={styles.input} 
-          onChangeText={setType} 
-          value={type} 
-          autoCapitalize="characters"
-        />
-        <TextInput 
-          placeholder="SIZE (CH / G)" 
-          style={styles.input} 
-          onChangeText={setSize} 
-          value={size} 
-          autoCapitalize="characters"
-        />
-        <TextInput 
-          placeholder="AMOUNT" 
-          style={styles.input} 
-          keyboardType="numeric" 
-          onChangeText={setAmount} 
-          value={amount} 
-        />
-        
-        <TouchableOpacity style={styles.saveBtn} onPress={handleSave}>
-          <Text style={styles.saveText}>SAVE</Text>
-        </TouchableOpacity>
+      <ImageBackground
+        source={require('../../assets/1.jpeg')}
+        style={styles.background}
+        resizeMode="cover"
+      >
+        <View style={styles.overlay}>
+          <Text style={styles.title}>ORDER</Text>
 
-        <TouchableOpacity 
-          style={styles.exitBtn} 
-          onPress={() => {
-            if (currentUser) {
-              navigation.navigate('MainMenu', { username: currentUser });
-            } else {
-              navigation.goBack();
-            }
-          }}
-        >
-          <Text style={styles.exitText}>EXIT</Text>
-        </TouchableOpacity>
-      </View>
+          <TextInput placeholder="TYPE" style={styles.input} onChangeText={setType} value={type} autoCapitalize="characters" />
+          <TextInput placeholder="SIZE (CH / G)" style={styles.input} onChangeText={setSize} value={size} autoCapitalize="characters" />
+          <TextInput placeholder="AMOUNT" style={styles.input} keyboardType="numeric" onChangeText={setAmount} value={amount} />
+
+          <TouchableOpacity style={styles.saveBtn} onPress={handleSave}>
+            <Text style={styles.saveText}>SAVE</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.exitBtn}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.exitText}>EXIT</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#e1a6b3',
-    alignItems: 'center',
-    justifyContent: 'center' 
+  background: {
+    flex: 1,
+    width: '100%',
+    height: '100%'
   },
-  title: { 
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(225, 166, 179, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  title: {
     fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 40 
+    marginBottom: 40
   },
   input: {
-    backgroundColor: '#f4f4f4',
+    backgroundColor: 'rgba(244, 244, 244, 0.9)',
     width: '80%',
     padding: 12,
     marginBottom: 25,
     textAlign: 'center'
   },
-  saveBtn: { 
+  saveBtn: {
     backgroundColor: '#8ea9db',
     padding: 15,
     width: '35%',
     alignItems: 'center',
-    borderRadius: 12 
+    borderRadius: 12
   },
   saveText: {
     color: 'white',
-    fontWeight: 'bold' 
+    fontWeight: 'bold'
   },
   exitBtn: {
-    position: 'absolute', 
-    bottom: 50, 
+    position: 'absolute',
+    bottom: 50,
     right: 50,
     backgroundColor: '#f8a08c',
     padding: 8,
     borderRadius: 10
   },
   exitText: {
-    fontSize: 12 
+    fontSize: 12
   }
 });
