@@ -15,8 +15,8 @@ export default function UsScreen({ navigation }) {
         
         <View style={styles.contactContainer}>
           <Text style={styles.contactTitle}>CONTACT:</Text>
-          <Text style={styles.contactText}>📧 contacto@pizzeriatecnm.com</Text>
-          <Text style={styles.contactText}>📞 477-123-4567</Text>
+          <Text style={styles.contactText}>contacto@pizzeriatecnm.com</Text>
+          <Text style={styles.contactText}>477-123-4567</Text>
         </View>
       </ScrollView>
 

@@ -42,7 +42,7 @@ export default function LoginScreen({ onLogin }) {
             <View style={styles.logoContainer}>
                 <Image source={require('../../assets/img1.jpg')} style={styles.logo} />
             </View>
-            <Text style={styles.label}>Inicia sesión</Text>
+            <Text style={styles.label}>login</Text>
             <TextInput placeholder="USER" style={styles.input} onChangeText={setU} />
             <TextInput placeholder="PASSWORD" secureTextEntry style={styles.input} onChangeText={setP} />
             <TouchableOpacity style={styles.btnEntrar} onPress={handleLogin}>

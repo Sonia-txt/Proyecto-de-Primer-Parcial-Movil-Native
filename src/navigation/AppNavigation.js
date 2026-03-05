@@ -16,10 +16,7 @@ export default function AppNavigation() {
   const [userLogged, setUserLogged] = useState('');
   
   const [orders, setOrders] = useState([
-    { id: '1', type: 'Hawaiana', size: 'G', amount: '2' },
-    { id: '2', type: 'Peperoni', size: 'CH', amount: '1' },
-    { id: '3', type: 'Cubana', size: 'G', amount: '1' }
-  ]);
+     ]);
 
   const handleLoginSuccess = (name) => {
     setUserLogged(name);
@@ -50,6 +47,7 @@ export default function AppNavigation() {
               />
             )}
           </Stack.Screen>
+          <Stack.Screen name="MainMenu" component={MainMenu} />
           <Stack.Screen name="PizzaMenu" component={PizzaMenu} />
           <Stack.Screen name="Order">
             {(props) => <OrderScreen {...props} onSave={addOrder} />}
