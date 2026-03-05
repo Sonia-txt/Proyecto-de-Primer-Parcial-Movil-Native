@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert, Image, BackHandler } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert, Image, BackHandler, Platform } from 'react-native';
 
 const USERS = [
     { user: 'Admin', pass: '123' },
@@ -23,13 +23,22 @@ export default function LoginScreen({ onLogin }) {
     const handleExit = () => {
         Alert.alert("Salir", "¿Deseas cerrar la aplicación?", [
             { text: "No", style: "cancel" },
-            { text: "Sí", onPress: () => BackHandler.exitApp() }
+            { 
+                text: "Sí", 
+                onPress: () => {
+                    if (Platform.OS === 'ios') {
+                        Alert.alert("Aviso", "No es posible cerrar la aplicación automáticamente porque es un iPhone. Por favor, ciérrala manualmente.");
+                    } else {
+                        BackHandler.exitApp();
+                    }
+                } 
+            }
         ]);
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>BIENVENIDO A{"\n"}PIZZERIA TECNM</Text>
+<Text style={styles.title}>WELCOME TO{"\n"}PIZZERIA DELIVERY</Text>
             <View style={styles.logoContainer}>
                 <Image source={require('../../assets/img1.jpg')} style={styles.logo} />
             </View>
