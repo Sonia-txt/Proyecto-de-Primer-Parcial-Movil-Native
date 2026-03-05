@@ -5,7 +5,7 @@ import LoginScreen from '../screens/LoginScreen';
 import MainMenu from '../screens/MainMenu';
 import PizzaMenu from '../screens/PizzaMenu';
 import OrderScreen from '../screens/OrderScreen';
-import OrdersList from '../screens/OrdersList';
+import OrdersList from '../screens/OrderList';
 import UsScreen from '../screens/UsScreen';
 import CustomerScreen from '../screens/CustomerScreen';
 
