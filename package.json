@@ -1,0 +1,17 @@
+{
+  "name": "proyecto-de-primer-parcial-movil-native",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "expo": "~55.0.4",
+    "react": "^19.2.4",
+    "react-native": "^0.84.1"
+  }
+}
