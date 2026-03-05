@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
        textAlign: 'center',
         fontSize: 22, 
         fontWeight: 'bold',
-         marginBottom: '20'
+         marginBottom: 20
          },
     logoContainer: { 
       width: 120, 
